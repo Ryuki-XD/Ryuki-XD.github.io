@@ -1,5 +1,6 @@
 import { GraduationCap } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import SectionTitle from "./SectionTitle";
 
 const About = () => {
   const education = [
@@ -27,12 +28,7 @@ const About = () => {
     <section id="about" className="py-16 md:py-24 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12 md:mb-16 animate-fade-in">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
-              About <span className="text-gradient">Me</span>
-            </h2>
-            <div className="w-20 h-1 bg-gradient-primary mx-auto rounded-full"></div>
-          </div>
+          <SectionTitle index="01">About Me</SectionTitle>
 
           <div className="space-y-8 animate-fade-in">
             <Card className="shadow-card hover-lift">

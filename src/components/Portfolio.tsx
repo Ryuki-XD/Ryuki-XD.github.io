@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink } from "lucide-react";
+import SectionTitle from "./SectionTitle";
 
 const Portfolio = () => {
   const projects = [
@@ -34,15 +35,7 @@ const Portfolio = () => {
     <section id="portfolio" className="py-16 md:py-24">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12 md:mb-16 animate-fade-in">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
-              My <span className="text-gradient">Portfolio</span>
-            </h2>
-            <div className="w-20 h-1 bg-gradient-primary mx-auto rounded-full"></div>
-            <p className="mt-6 text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
-              Real, working projects — full source code on GitHub
-            </p>
-          </div>
+          <SectionTitle index="04">Projects</SectionTitle>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {projects.map((project, index) => (

@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Mail, Github, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
+import SectionTitle from "./SectionTitle";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
@@ -82,15 +83,10 @@ const Contact = () => {
     <section id="contact" className="py-16 md:py-24 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12 md:mb-16 animate-fade-in">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
-              Get In <span className="text-gradient">Touch</span>
-            </h2>
-            <div className="w-20 h-1 bg-gradient-primary mx-auto rounded-full"></div>
-            <p className="mt-6 text-muted-foreground text-base md:text-lg">
-              Have a question or want to work together? Feel free to reach out!
-            </p>
-          </div>
+          <SectionTitle index="05">Get In Touch</SectionTitle>
+          <p className="-mt-6 mb-10 text-muted-foreground text-base md:text-lg animate-fade-in">
+            Have a question or want to work together? Feel free to reach out!
+          </p>
 
           <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-start">
             <div className="space-y-6 animate-fade-in">

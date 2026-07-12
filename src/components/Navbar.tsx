@@ -45,9 +45,9 @@ const Navbar = () => {
               e.preventDefault();
               scrollToSection("#home");
             }}
-            className="text-xl md:text-2xl font-bold text-gradient"
+            className="text-xl md:text-2xl font-bold"
           >
-            Sudip.dev
+            sudip<span className="text-primary">.dev</span>
           </a>
 
           {/* Desktop Navigation */}
