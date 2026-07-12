@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, Phone, Facebook, Github, Send } from "lucide-react";
+import { Mail, Github, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 
@@ -13,6 +13,9 @@ const contactSchema = z.object({
   email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters"),
   message: z.string().trim().min(1, "Message is required").max(1000, "Message must be less than 1000 characters"),
 });
+
+const CONTACT_EMAIL = "kaixhero@gmail.com";
+const GITHUB_URL = "https://github.com/Ryuki-XD";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -24,49 +27,35 @@ const Contact = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const contactInfo = [
-    {
-      icon: Mail,
-      label: "Email",
-      value: "sudipgachchhadar7@gmail.com",
-      href: "mailto:sudipgachchhadar7@gmail.com",
-    },
-    {
-      icon: Phone,
-      label: "Phone",
-      value: "+977 984-4037873",
-      href: "tel:+9779844037873",
-    },
-    {
-      icon: Facebook,
-      label: "Facebook",
-      value: "@XG0DH3R3",
-      href: "https://www.facebook.com/XG0DH3R3",
-    },
-    {
-      icon: Github,
-      label: "GitHub",
-      value: "Ryuki-XD",
-      href: "https://github.com/Ryuki-XD",
-    },
-  ];
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors({});
-    setIsSubmitting(true);
 
     try {
       const validated = contactSchema.parse(formData);
+      setIsSubmitting(true);
 
-      // Simulate form submission
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      toast({
-        title: "Message Sent!",
-        description: "Thank you for reaching out. I'll get back to you soon!",
+      const res = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: validated.name,
+          email: validated.email,
+          message: validated.message,
+          _subject: `Portfolio contact from ${validated.name}`,
+          _template: "table",
+        }),
       });
 
+      if (!res.ok) throw new Error("Delivery failed");
+
+      toast({
+        title: "Message sent!",
+        description: "Thanks for reaching out — I'll reply to your email soon.",
+      });
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -77,6 +66,12 @@ const Contact = () => {
           }
         });
         setErrors(fieldErrors);
+      } else {
+        toast({
+          title: "Couldn't send the message",
+          description: `Something went wrong — please email me directly at ${CONTACT_EMAIL}.`,
+          variant: "destructive",
+        });
       }
     } finally {
       setIsSubmitting(false);
@@ -97,40 +92,76 @@ const Contact = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8 md:gap-12">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-start">
             <div className="space-y-6 animate-fade-in">
-              <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
-              {contactInfo.map((info, index) => {
-                const Icon = info.icon;
-                return (
-                  <Card
-                    key={info.label}
-                    className="shadow-card hover-lift transition-all duration-300"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <CardContent className="pt-6">
-                      <a
-                        href={info.href}
-                        target={info.icon === Facebook || info.icon === Github ? "_blank" : undefined}
-                        rel={info.icon === Facebook || info.icon === Github ? "noopener noreferrer" : undefined}
-                        className="flex items-center gap-4 group"
-                      >
-                        <div className="p-3 rounded-xl bg-gradient-primary group-hover:scale-110 transition-transform">
-                          <Icon className="w-6 h-6 text-primary-foreground" />
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">
-                            {info.label}
-                          </p>
-                          <p className="text-base md:text-lg font-semibold group-hover:text-primary transition-colors">
-                            {info.value}
-                          </p>
-                        </div>
-                      </a>
-                    </CardContent>
-                  </Card>
-                );
-              })}
+              {/* Terminal-style contact card */}
+              <div className="rounded-xl overflow-hidden border border-border shadow-card font-mono text-sm">
+                <div className="flex items-center gap-2 px-4 py-3 bg-[#161b22] border-b border-[#30363d]">
+                  <span className="w-3 h-3 rounded-full bg-[#ff5f56]"></span>
+                  <span className="w-3 h-3 rounded-full bg-[#ffbd2e]"></span>
+                  <span className="w-3 h-3 rounded-full bg-[#27c93f]"></span>
+                  <span className="ml-2 text-[#8b949e] text-xs">contact — bash</span>
+                </div>
+                <div className="bg-[#0d1117] p-6 space-y-3 text-[#c9d1d9] leading-relaxed">
+                  <p>
+                    <span className="text-[#7ee787]">$</span> whoami
+                  </p>
+                  <p className="pl-5 text-[#e6edf3]">
+                    Sudip Kr. Gachhadar<span className="text-[#8b949e]"> · web developer</span>
+                  </p>
+                  <p>
+                    <span className="text-[#7ee787]">$</span> cat contact.txt
+                  </p>
+                  <p className="pl-5">
+                    <span className="text-[#8b949e]">email  → </span>
+                    <a
+                      href={`mailto:${CONTACT_EMAIL}`}
+                      className="text-[#58a6ff] hover:underline break-all"
+                    >
+                      {CONTACT_EMAIL}
+                    </a>
+                  </p>
+                  <p className="pl-5">
+                    <span className="text-[#8b949e]">github → </span>
+                    <a
+                      href={GITHUB_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#58a6ff] hover:underline break-all"
+                    >
+                      github.com/Ryuki-XD
+                    </a>
+                  </p>
+                  <p>
+                    <span className="text-[#7ee787]">$</span>{" "}
+                    <span className="inline-block w-2.5 h-4 bg-[#c9d1d9] align-middle animate-pulse"></span>
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button
+                  asChild
+                  size="lg"
+                  className="flex-1 bg-gradient-primary hover:opacity-90 transition-opacity"
+                >
+                  <a href={`mailto:${CONTACT_EMAIL}`}>
+                    <Mail className="w-4 h-4 mr-2" />
+                    Email me
+                  </a>
+                </Button>
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="flex-1 border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                >
+                  <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
+                    <Github className="w-4 h-4 mr-2" />
+                    GitHub
+                  </a>
+                </Button>
+              </div>
             </div>
 
             <Card className="shadow-card animate-fade-in">
