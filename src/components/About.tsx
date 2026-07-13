@@ -5,9 +5,9 @@ import SectionTitle from "./SectionTitle";
 const About = () => {
   const education = [
     {
-      period: "2024 Oct – Ongoing",
+      period: "2023 Oct – 2026 Oct",
       institution: "ISMT College Biratnagar",
-      description: "Currently pursuing higher education in technology",
+      description: "Bachelor's degree in technology — course completed, awaiting graduation",
       url: "https://ismt.edu.np/",
     },
     {
