@@ -22,6 +22,14 @@ const Portfolio = () => {
       link: "https://github.com/Ryuki-XD/ai-resume-analyzer",
     },
     {
+      title: "Inventory Management System",
+      description:
+        "A desktop inventory app with dashboard KPIs and charts, sales and purchase tracking, barcode generation, PDF invoices, Excel/CSV export, and database backups.",
+      tags: ["Python", "CustomTkinter", "SQLite", "pandas"],
+      category: "Desktop App",
+      link: "https://github.com/Ryuki-XD/inventory-management-system",
+    },
+    {
       title: "Library Management System",
       description:
         "A desktop app for managing books, students, and loans with dashboards and reports. Layered MVC architecture, hashed logins, and light/dark themes over MySQL.",
