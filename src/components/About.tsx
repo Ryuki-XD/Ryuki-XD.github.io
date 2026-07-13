@@ -5,7 +5,7 @@ import SectionTitle from "./SectionTitle";
 const About = () => {
   const education = [
     {
-      period: "2023 Oct – 2026 Oct AD",
+      period: "2023 – 2026 AD",
       institution: "ISMT College Biratnagar",
       description: "Bachelor's degree in technology — course completed, awaiting graduation",
       url: "https://ismt.edu.np/",
@@ -67,7 +67,7 @@ const About = () => {
                           <span className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary transition-colors">
                             <GraduationCap className="w-5 h-5" />
                           </span>
-                          <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-lg font-semibold text-sm">
+                          <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full font-mono text-sm whitespace-nowrap w-[150px] text-center">
                             {edu.period}
                           </span>
                         </div>
