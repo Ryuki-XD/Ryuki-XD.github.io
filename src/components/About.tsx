@@ -5,19 +5,19 @@ import SectionTitle from "./SectionTitle";
 const About = () => {
   const education = [
     {
-      period: "2023 Oct – 2026 Oct",
+      period: "2023 Oct – 2026 Oct AD",
       institution: "ISMT College Biratnagar",
       description: "Bachelor's degree in technology — course completed, awaiting graduation",
       url: "https://ismt.edu.np/",
     },
     {
-      period: "2021 – 2023",
+      period: "2021 – 2023 AD",
       institution: "Shikshadeep B.S.S",
       description: "+2 Computer Science",
       url: "https://www.shikshadeep.edu.np/",
     },
     {
-      period: "2009 – 2021",
+      period: "2009 – 2021 AD",
       institution: "Lovely Angels English Boarding School",
       description: "Secondary Education Examination (SEE)",
       url: "https://school.baburamphuyal.com.np/",
