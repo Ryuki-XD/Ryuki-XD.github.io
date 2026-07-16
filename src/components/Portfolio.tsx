@@ -6,6 +6,14 @@ import SectionTitle from "./SectionTitle";
 const Portfolio = () => {
   const projects = [
     {
+      title: "Cyber Heist — Browser Game",
+      description:
+        "A cyberpunk stealth infiltration game: guard AI patrols, security cameras, hacking minigames, achievements, and save profiles. All graphics and audio generated in code — playable right in your browser.",
+      tags: ["JavaScript", "Phaser 3", "Canvas", "Web Audio"],
+      category: "Game Dev",
+      link: "https://ryuki-xd.github.io/cyber-heist/",
+    },
+    {
       title: "AI Solutions Website",
       description:
         "A full business website with a CMS-style admin dashboard, an AI chatbot powered by Google Gemini, email automation, and a MongoDB-backed REST API served by a Python backend.",
