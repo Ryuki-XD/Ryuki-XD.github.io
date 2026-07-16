@@ -6,6 +6,14 @@ import SectionTitle from "./SectionTitle";
 const Portfolio = () => {
   const projects = [
     {
+      title: "Chrono Architect — Browser Game",
+      description:
+        "A time-clone puzzle game: record your movements, replay them as clones of your past self, and cooperate across timelines to solve each level. Pressure plates, lasers, crates, and moving platforms — all procedurally drawn.",
+      tags: ["JavaScript", "Phaser 3", "ES6 Modules", "Puzzle Design"],
+      category: "Game Dev",
+      link: "https://ryuki-xd.github.io/chrono-architect/",
+    },
+    {
       title: "Cyber Heist — Browser Game",
       description:
         "A cyberpunk stealth infiltration game: guard AI patrols, security cameras, hacking minigames, achievements, and save profiles. All graphics and audio generated in code — playable right in your browser.",
