@@ -32,10 +32,10 @@ export const projects: Project[] = [
   {
     slug: "shivganga-delivery",
     title: "Shiv Ganga Delivery",
-    category: "Mobile App",
+    category: "Client Work · Mobile",
     description:
-      "An Android delivery partner app for Shiv Ganga Enterprises. Drivers sign in, see the orders assigned to them, call the customer, and move each order through confirmed, out for delivery, and delivered — with the order list syncing live from Firestore.",
-    role: "Solo developer — built the Flutter app end to end, from the Firestore data model and auth through to the bilingual UI.",
+      "A Flutter and Firebase delivery platform built for Shiv Ganga Enterprises, with a delivery partner panel where drivers sign in, see their assigned orders, call the customer, and move each order through confirmed, out for delivery, and delivered — the order list syncing live from Cloud Firestore.",
+    role: "Developer on a small team, working on the Flutter client and its Firestore data flow.",
     tags: ["Flutter", "Dart", "Firebase Auth", "Cloud Firestore", "Provider"],
     highlights: [
       "Live order list backed by Cloud Firestore",
@@ -45,8 +45,9 @@ export const projects: Project[] = [
       "One-tap call to the customer, and cash-on-delivery amount prompts",
       "Pending and delivered tabs with running totals",
     ],
-    // Not public: no repository link, and the Play Store listing is not live yet.
-    status: "In review on Google Play",
+    // Client-owned code, so nothing is published. The linked repository is a
+    // separately written generic template, not this project's source.
+    status: "Client project · in closed testing",
     featured: true,
   },
   {
@@ -85,6 +86,22 @@ export const projects: Project[] = [
     demo: "https://ryuki-xd.github.io/chrono-architect/",
     code: "https://github.com/Ryuki-XD/chrono-architect",
     featured: true,
+  },
+  {
+    slug: "delivery-panel-starter",
+    title: "Delivery Panel Starter",
+    category: "Open Source · Flutter",
+    description:
+      "An open-source Flutter and Firebase starter for delivery partner apps: email sign-in, a live Firestore order stream scoped to the signed-in driver, and a confirmed → out for delivery → delivered workflow. Written as a reusable template, with the backend calls kept behind a single service so another backend can be dropped in.",
+    role: "Author — written from scratch and released under MIT.",
+    tags: ["Flutter", "Dart", "Firebase", "Cloud Firestore", "Material 3"],
+    highlights: [
+      "Layered so widgets never touch Firestore directly",
+      "Two-language UI with an in-app toggle",
+      "Documented Firestore shape, composite index, and security rules",
+      "Real Firebase config gitignored; only a placeholder example is tracked",
+    ],
+    code: "https://github.com/Ryuki-XD/flutter-delivery-panel-template",
   },
   {
     slug: "cyber-heist",
