@@ -11,32 +11,32 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center pt-24 md:pt-20 bg-gradient-hero scroll-mt-20"
+      className="relative min-h-[100svh] flex items-center pt-24 pb-28 md:pt-28 md:pb-32 bg-gradient-hero scroll-mt-20"
     >
-      <div className="container mx-auto px-4 py-12 md:py-20">
-        <div className="max-w-3xl space-y-5 md:space-y-6 animate-fade-in">
+      <div className="container mx-auto px-4">
+        <div className="max-w-4xl space-y-4 md:space-y-5 animate-fade-in">
           <p className="font-mono text-primary text-sm md:text-base">
             Hi, my name is
           </p>
 
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight">
             {SITE.name}.
           </h1>
 
-          <p className="text-xl md:text-3xl lg:text-4xl font-bold text-muted-foreground leading-tight">
+          <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-muted-foreground leading-snug">
             Software Developer{" "}
             <span className="text-primary/60 font-normal px-1">|</span> Web &amp;
             App Development
           </p>
 
-          <p className="text-base md:text-lg text-foreground/70 max-w-2xl leading-relaxed pt-2">
+          <p className="text-base md:text-lg text-foreground/70 max-w-2xl leading-relaxed pt-1">
             Computer Systems Engineering student building responsive websites
             and software applications. I like shipping complete, working
             products — database-backed web apps, desktop tools, and browser
             games. Currently looking for my first professional developer role.
           </p>
 
-          <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 pt-4">
+          <div className="flex flex-row flex-wrap items-center gap-3 sm:gap-4 pt-4">
             <Button
               size="lg"
               className="bg-gradient-primary hover:opacity-90 transition-opacity text-base px-8 hover-glow"
@@ -83,18 +83,20 @@ const Hero = () => {
             )}
           </div>
         </div>
+      </div>
 
-        <div className="flex justify-center mt-16 lg:mt-24">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="rounded-full animate-bounce"
-            onClick={() => scrollToSection("#about")}
-            aria-label="Scroll to the About section"
-          >
-            <ArrowDown className="w-6 h-6 text-primary" aria-hidden="true" />
-          </Button>
-        </div>
+      {/* Pinned to the section instead of sitting in the flow, so it can never
+          push the centred content up under the fixed navbar. */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden sm:block">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="rounded-full animate-bounce"
+          onClick={() => scrollToSection("#about")}
+          aria-label="Scroll to the About section"
+        >
+          <ArrowDown className="w-6 h-6 text-primary" aria-hidden="true" />
+        </Button>
       </div>
     </section>
   );
