@@ -31,22 +31,22 @@ export interface Project {
 export const projects: Project[] = [
   {
     slug: "shivganga-delivery",
-    title: "Shiv Ganga Delivery",
+    title: "Shiv Ganga — Water Delivery Platform",
     category: "Client Work · Mobile",
     description:
-      "A Flutter and Firebase delivery platform built for Shiv Ganga Enterprises, with a delivery partner panel where drivers sign in, see their assigned orders, call the customer, and move each order through confirmed, out for delivery, and delivered — the order list syncing live from Cloud Firestore.",
-    role: "Developer on a small team, working on the Flutter client and its Firestore data flow.",
-    tags: ["Flutter", "Dart", "Firebase Auth", "Cloud Firestore", "Provider"],
+      "A two-app Flutter and Firebase platform built for a water delivery business: a customer app for placing and tracking orders, and a delivery partner panel where drivers work through the orders assigned to them. Both share one Firebase backend, so an order placed in the customer app appears on a driver's phone and its status flows back the same way.",
+    role: "Developer on a small team, working across both apps — the customer-facing app and the delivery partner panel.",
+    tags: ["Flutter", "Dart", "Firebase Auth", "Cloud Firestore", "FCM"],
     highlights: [
-      "Live order list backed by Cloud Firestore",
-      "Email and password sign-in through Firebase Auth",
+      "Customer app: Google sign-in, push notifications, location and camera access",
+      "Firebase App Check enabled to keep unverified clients off the backend",
+      "Partner panel: live order list from Cloud Firestore, scoped per driver",
       "Three-stage delivery workflow with confirmation dialogs",
       "Full Hindi and English interface with an in-app language toggle",
       "One-tap call to the customer, and cash-on-delivery amount prompts",
-      "Pending and delivered tabs with running totals",
     ],
-    // Client-owned code, so nothing is published. The linked repository is a
-    // separately written generic template, not this project's source.
+    // Client-owned code, so nothing is published. The Delivery Panel Starter
+    // repository is a separately written generic template, not this source.
     status: "Client project · in closed testing",
     featured: true,
   },
