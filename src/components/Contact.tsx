@@ -16,6 +16,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 import SectionTitle from "./SectionTitle";
+import TerminalWindow from "./TerminalWindow";
 import { SITE, CV, activeSocials, type SocialKey } from "@/config/site";
 
 const contactSchema = z.object({
@@ -108,14 +109,8 @@ const Contact = () => {
           <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-start">
             <div className="space-y-6 animate-fade-in">
               {/* Terminal-style contact card */}
-              <div className="rounded-xl overflow-hidden border border-border shadow-card font-mono text-sm">
-                <div className="flex items-center gap-2 px-4 py-3 bg-[#161b22] border-b border-[#30363d]">
-                  <span className="w-3 h-3 rounded-full bg-[#ff5f56]"></span>
-                  <span className="w-3 h-3 rounded-full bg-[#ffbd2e]"></span>
-                  <span className="w-3 h-3 rounded-full bg-[#27c93f]"></span>
-                  <span className="ml-2 text-[#8b949e] text-xs">contact — bash</span>
-                </div>
-                <div className="bg-[#0d1117] p-5 sm:p-6 space-y-3 text-[#c9d1d9] leading-relaxed">
+              <TerminalWindow title="contact — bash">
+                <div className="p-5 sm:p-6 space-y-3">
                   <p>
                     <span className="text-[#7ee787]">$</span> whoami
                   </p>
@@ -154,7 +149,7 @@ const Contact = () => {
                     ></span>
                   </p>
                 </div>
-              </div>
+              </TerminalWindow>
 
               {/* Primary contact actions */}
               <div className="flex flex-col sm:flex-row gap-3">

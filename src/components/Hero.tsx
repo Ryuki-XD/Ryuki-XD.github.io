@@ -1,6 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { ArrowDown, Download, Github } from "lucide-react";
 import { SITE, CV } from "@/config/site";
+import TerminalWindow from "./TerminalWindow";
+
+/** Every value here is factual and matches the rest of the page. */
+const profile: [string, string][] = [
+  ["role", `"Software Developer"`],
+  ["degree", `"BSc (Hons) Computer Systems Eng. (IT)"`],
+  ["university", `"University of Sunderland, UK"`],
+  ["status", `"Awaiting Graduation"`],
+  ["focus", `["web", "applications", "backend"]`],
+  ["open_to", `"Junior developer roles"`],
+];
 
 const Hero = () => {
   const scrollToSection = (sectionId: string) => {
@@ -14,75 +25,107 @@ const Hero = () => {
       className="relative min-h-[100svh] flex items-center pt-24 pb-28 md:pt-28 md:pb-32 bg-gradient-hero scroll-mt-20"
     >
       <div className="container mx-auto px-4">
-        {/* mx-auto keeps the block centred on wide screens, matching every
-            other section; lines stay left-aligned for readability. */}
-        <div className="max-w-4xl mx-auto space-y-4 md:space-y-5 animate-fade-in">
-          <p className="font-mono text-primary text-sm md:text-base">
-            Hi, my name is
-          </p>
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-[1.05fr_0.95fr] gap-10 xl:gap-16 items-center">
+          {/* Left column — the pitch */}
+          <div className="space-y-4 md:space-y-5 animate-fade-in min-w-0">
+            <p className="font-mono text-primary text-sm md:text-base">
+              Hi, my name is
+            </p>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight">
-            {SITE.name}.
-          </h1>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.1] tracking-tight">
+              {SITE.name}.
+            </h1>
 
-          <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-muted-foreground leading-snug">
-            Software Developer{" "}
-            <span className="text-primary/60 font-normal px-1">|</span> Web &amp;
-            App Development
-          </p>
+            <p className="text-lg sm:text-xl md:text-2xl font-bold text-muted-foreground leading-snug">
+              Software Developer{" "}
+              <span className="text-primary/60 font-normal px-1">|</span> Web
+              &amp; App Development
+            </p>
 
-          <p className="text-base md:text-lg text-foreground/70 max-w-2xl leading-relaxed pt-1">
-            Computer Systems Engineering student building responsive websites
-            and software applications. I like shipping complete, working
-            products — database-backed web apps, desktop tools, and browser
-            games. Currently looking for my first professional developer role.
-          </p>
+            <p className="text-base md:text-lg text-foreground/70 max-w-2xl leading-relaxed pt-1">
+              Computer Systems Engineering student building responsive websites
+              and software applications. I like shipping complete, working
+              products — database-backed web apps, desktop tools, and browser
+              games. Currently looking for my first professional developer role.
+            </p>
 
-          <div className="flex flex-row flex-wrap items-center gap-3 sm:gap-4 pt-4">
-            <Button
-              size="lg"
-              className="bg-gradient-primary hover:opacity-90 transition-opacity text-base px-8 hover-glow"
-              onClick={() => scrollToSection("#portfolio")}
-            >
-              View Projects
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground text-base px-8"
-              onClick={() => scrollToSection("#contact")}
-            >
-              Contact Me
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="ghost"
-              className="text-base px-6 text-foreground/80 hover:text-primary hover:bg-primary/10"
-            >
-              <a
-                href={SITE.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="View my GitHub profile (opens in a new tab)"
+            <div className="flex flex-row flex-wrap items-center gap-3 sm:gap-4 pt-4">
+              <Button
+                size="lg"
+                className="bg-gradient-primary hover:opacity-90 transition-opacity text-base px-8 hover-glow"
+                onClick={() => scrollToSection("#portfolio")}
               >
-                <Github className="w-4 h-4 mr-2" aria-hidden="true" />
-                GitHub ↗
-              </a>
-            </Button>
-            {CV.cvUrl && (
+                View Projects
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground text-base px-8"
+                onClick={() => scrollToSection("#contact")}
+              >
+                Contact Me
+              </Button>
               <Button
                 asChild
                 size="lg"
                 variant="ghost"
                 className="text-base px-6 text-foreground/80 hover:text-primary hover:bg-primary/10"
               >
-                <a href={CV.cvUrl} download={CV.fileName}>
-                  <Download className="w-4 h-4 mr-2" aria-hidden="true" />
-                  Download CV
+                <a
+                  href={SITE.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="View my GitHub profile (opens in a new tab)"
+                >
+                  <Github className="w-4 h-4 mr-2" aria-hidden="true" />
+                  GitHub ↗
                 </a>
               </Button>
-            )}
+              {CV.cvUrl && (
+                <Button
+                  asChild
+                  size="lg"
+                  variant="ghost"
+                  className="text-base px-6 text-foreground/80 hover:text-primary hover:bg-primary/10"
+                >
+                  <a href={CV.cvUrl} download={CV.fileName}>
+                    <Download className="w-4 h-4 mr-2" aria-hidden="true" />
+                    Download CV
+                  </a>
+                </Button>
+              )}
+            </div>
+          </div>
+
+          {/* Right column — fills what used to be dead space. Decorative
+              restatement of facts already on the page, so it is hidden from
+              screen readers and from narrow screens where it would only add
+              height. */}
+          <div
+            className="hidden lg:block animate-fade-in"
+            aria-hidden="true"
+          >
+            <TerminalWindow title="sudip@portfolio: ~">
+              <div className="p-6 space-y-1.5">
+                <p>
+                  <span className="text-[#7ee787]">$</span> cat profile.json
+                </p>
+                <p className="text-[#8b949e]">{"{"}</p>
+                {profile.map(([key, value]) => (
+                  <p key={key} className="pl-4 break-words">
+                    <span className="text-[#79c0ff]">"{key}"</span>
+                    <span className="text-[#8b949e]">: </span>
+                    <span className="text-[#a5d6ff]">{value}</span>
+                    <span className="text-[#8b949e]">,</span>
+                  </p>
+                ))}
+                <p className="text-[#8b949e]">{"}"}</p>
+                <p className="pt-2">
+                  <span className="text-[#7ee787]">$</span>{" "}
+                  <span className="inline-block w-2.5 h-4 bg-[#c9d1d9] align-middle animate-pulse"></span>
+                </p>
+              </div>
+            </TerminalWindow>
           </div>
         </div>
       </div>
