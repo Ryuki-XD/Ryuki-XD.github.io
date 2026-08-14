@@ -1,17 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Volume2, VolumeX } from "lucide-react";
 import { useTypewriter } from "@/hooks/use-typewriter";
 
-/** Shown on screen. */
 const MESSAGE = "Welcome to my ePortfolio";
-/** Spoken aloud — hyphenated so speech engines don't read "ePortfolio" as one odd word. */
-const SPOKEN = "Welcome to my e-portfolio";
-
-const VOICE_KEY = "voiceEnabled";
 const SEEN_KEY = "introSeen";
 
-/** Longest the intro may stay up, however the speech behaves. */
-const MAX_INTRO_MS = 4500;
+/** Longest the intro may stay up, whatever happens. */
+const MAX_INTRO_MS = 3000;
 
 interface WelcomeOverlayProps {
   onDone: () => void;
@@ -19,144 +13,45 @@ interface WelcomeOverlayProps {
 
 const WelcomeOverlay = ({ onDone }: WelcomeOverlayProps) => {
   const [leaving, setLeaving] = useState(false);
-  const [voiceOn, setVoiceOn] = useState(
-    () => localStorage.getItem(VOICE_KEY) !== "off",
-  );
-  /** True once speech has finished, errored, or been ruled out. */
-  const [speechSettled, setSpeechSettled] = useState(false);
-  /** Set when the browser refused to speak without a user gesture. */
-  const [blocked, setBlocked] = useState(false);
-
   const finished = useRef(false);
-  const started = useRef(false);
-  const { count, done: typingDone } = useTypewriter(MESSAGE.length, {
-    tickMs: 55,
-  });
-
-  /** Deep, deliberate delivery — as close to a JARVIS read as the Web Speech API gets. */
-  const speak = useCallback(() => {
-    const synth = window.speechSynthesis;
-    if (!synth) {
-      setSpeechSettled(true);
-      return;
-    }
-
-    const run = () => {
-      synth.cancel();
-      const utterance = new SpeechSynthesisUtterance(SPOKEN);
-      utterance.rate = 0.82;
-      utterance.pitch = 0.5;
-
-      /* Prefer a deep male English voice; Windows ships David and Mark,
-         British systems tend to have Daniel or George. */
-      const voices = synth.getVoices();
-      const male = /daniel|george|arthur|david|mark|alex|male/i;
-      utterance.voice =
-        voices.find((v) => /en-GB/i.test(v.lang) && male.test(v.name)) ??
-        voices.find((v) => /^en/i.test(v.lang) && male.test(v.name)) ??
-        voices.find((v) => /en-GB/i.test(v.lang)) ??
-        voices.find((v) => /^en/i.test(v.lang)) ??
-        null;
-
-      utterance.onstart = () => {
-        started.current = true;
-        setBlocked(false);
-      };
-      utterance.onend = () => setSpeechSettled(true);
-      utterance.onerror = () => {
-        setBlocked(true);
-        setSpeechSettled(true);
-      };
-
-      try {
-        synth.speak(utterance);
-      } catch {
-        setBlocked(true);
-        setSpeechSettled(true);
-      }
-
-      /* Autoplay policy blocks speech until the visitor interacts. If nothing
-         has started shortly after asking, stop waiting on it. */
-      window.setTimeout(() => {
-        if (!started.current) {
-          setBlocked(true);
-          setSpeechSettled(true);
-        }
-      }, 900);
-    };
-
-    if (synth.getVoices().length === 0) {
-      synth.addEventListener("voiceschanged", run, { once: true });
-      window.setTimeout(run, 250);
-    } else {
-      run();
-    }
-  }, []);
+  const { count, done } = useTypewriter(MESSAGE.length, { tickMs: 50 });
 
   const finish = useCallback(() => {
     if (finished.current) return;
     finished.current = true;
-    window.speechSynthesis?.cancel();
     setLeaving(true);
-    window.setTimeout(onDone, 450);
+    window.setTimeout(onDone, 500);
   }, [onDone]);
 
-  /* Kick the voice off at the same moment the line starts typing. */
+  /* Leave shortly after the line lands. */
   useEffect(() => {
-    if (voiceOn) speak();
-    else setSpeechSettled(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  /* Leave only once the line is typed AND the voice has had its say. */
-  useEffect(() => {
-    if (!typingDone || !speechSettled) return;
-    const id = window.setTimeout(finish, 600);
+    if (!done) return;
+    const id = window.setTimeout(finish, 650);
     return () => window.clearTimeout(id);
-  }, [typingDone, speechSettled, finish]);
+  }, [done, finish]);
 
-  /* Hard ceiling, so a stalled voice can never strand the visitor. */
+  /* Hard ceiling, so the intro can never strand a visitor. */
   useEffect(() => {
     const id = window.setTimeout(finish, MAX_INTRO_MS);
     return () => window.clearTimeout(id);
   }, [finish]);
 
-  /* Any interaction skips ahead — except taps on the overlay's own controls. */
+  /* Any interaction skips ahead. */
   useEffect(() => {
-    const skip = (e: Event) => {
-      const target = e.target as Element | null;
-      if (target?.closest?.("[data-overlay-control]")) return;
-      finish();
-    };
-    window.addEventListener("keydown", skip);
-    window.addEventListener("pointerdown", skip);
-    window.addEventListener("wheel", skip, { passive: true });
+    window.addEventListener("keydown", finish);
+    window.addEventListener("pointerdown", finish);
+    window.addEventListener("wheel", finish, { passive: true });
     return () => {
-      window.removeEventListener("keydown", skip);
-      window.removeEventListener("pointerdown", skip);
-      window.removeEventListener("wheel", skip);
+      window.removeEventListener("keydown", finish);
+      window.removeEventListener("pointerdown", finish);
+      window.removeEventListener("wheel", finish);
     };
   }, [finish]);
 
-  const toggleVoice = () => {
-    const next = !voiceOn;
-    setVoiceOn(next);
-    localStorage.setItem(VOICE_KEY, next ? "on" : "off");
-    if (next) {
-      /* This click is the gesture browsers were waiting for. */
-      setSpeechSettled(false);
-      started.current = false;
-      speak();
-    } else {
-      window.speechSynthesis?.cancel();
-      setSpeechSettled(true);
-    }
-  };
-
   return (
     <div
-      className={`fixed inset-0 z-[100] flex items-center justify-center bg-background transition-opacity duration-500 ${
-        leaving ? "opacity-0 pointer-events-none" : "opacity-100"
+      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6 bg-background transition-all duration-500 ${
+        leaving ? "opacity-0 scale-[1.04] pointer-events-none" : "opacity-100 scale-100"
       }`}
       role="status"
       aria-live="polite"
@@ -172,27 +67,16 @@ const WelcomeOverlay = ({ onDone }: WelcomeOverlayProps) => {
         ></span>
       </p>
 
-      <button
-        type="button"
-        data-overlay-control
-        onClick={toggleVoice}
-        aria-label={
-          voiceOn
-            ? blocked
-              ? "Play the welcome voice"
-              : "Turn welcome voice off"
-            : "Turn welcome voice on"
-        }
-        className="absolute bottom-8 right-8 inline-flex items-center gap-2 rounded-lg border border-border px-3 h-11 text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      {/* Thin progress line that fills as the greeting types. */}
+      <div
+        className="h-px w-40 sm:w-56 bg-border overflow-hidden"
+        aria-hidden="true"
       >
-        {voiceOn ? (
-          <Volume2 className="w-5 h-5" aria-hidden="true" />
-        ) : (
-          <VolumeX className="w-5 h-5" aria-hidden="true" />
-        )}
-        {/* Browsers stay silent until the visitor interacts, so offer the tap. */}
-        {voiceOn && blocked && <span className="text-xs">Tap for sound</span>}
-      </button>
+        <div
+          className="h-full bg-primary transition-all duration-150 ease-linear"
+          style={{ width: `${(count / MESSAGE.length) * 100}%` }}
+        ></div>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import { Github } from "lucide-react";
 import SectionTitle from "./SectionTitle";
+import Reveal from "./Reveal";
 import { FeaturedProjectCard, CompactProjectCard } from "./ProjectCard";
 import { featuredProjects, otherProjects } from "@/data/projects";
 import { SITE } from "@/config/site";
@@ -17,13 +18,17 @@ const Portfolio = () => {
 
           <div className="space-y-6 md:space-y-8">
             {featuredProjects.map((project) => (
-              <FeaturedProjectCard key={project.slug} project={project} />
+              <Reveal key={project.slug}>
+                <FeaturedProjectCard project={project} />
+              </Reveal>
             ))}
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8 mt-6 md:mt-8">
-            {otherProjects.map((project) => (
-              <CompactProjectCard key={project.slug} project={project} />
+            {otherProjects.map((project, i) => (
+              <Reveal key={project.slug} delay={i * 80} className="h-full">
+                <CompactProjectCard project={project} />
+              </Reveal>
             ))}
           </div>
 

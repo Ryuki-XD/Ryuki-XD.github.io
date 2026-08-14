@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import SectionTitle from "./SectionTitle";
+import Reveal from "./Reveal";
 
 interface Skill {
   name: string;
@@ -56,8 +57,10 @@ const groups: SkillGroup[] = [
     title: "Mobile & Cloud",
     items: [
       { name: "Flutter" },
+      { name: "Dart" },
+      { name: "Firebase Auth" },
+      { name: "Cloud Firestore" },
       { name: "Kotlin", note: "learning" },
-      { name: "Firebase" },
     ],
   },
   {
@@ -84,10 +87,10 @@ const Skills = () => {
           </p>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
-            {groups.map((group) => (
+            {groups.map((group, i) => (
+              <Reveal key={group.title} delay={i * 70} className="h-full">
               <Card
-                key={group.title}
-                className="shadow-card border-border/80 transition-colors duration-300 hover:border-primary/40"
+                className="h-full shadow-card border-border/80 transition-colors duration-300 hover:border-primary/40"
               >
                 <CardContent className="p-5 md:p-6">
                   <h3 className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-4">
@@ -110,6 +113,7 @@ const Skills = () => {
                   </ul>
                 </CardContent>
               </Card>
+              </Reveal>
             ))}
           </div>
         </div>

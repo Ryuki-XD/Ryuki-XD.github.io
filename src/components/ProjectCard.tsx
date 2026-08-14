@@ -8,7 +8,17 @@ import type { Project } from "@/data/projects";
  * Rendered as real, individually focusable links — the card itself is not a
  * link, so keyboard users get one clear target per destination.
  */
-const ProjectLinks = ({ project }: { project: Project }) => (
+const ProjectLinks = ({ project }: { project: Project }) => {
+  /* Nothing public to link to yet — say so rather than leaving a blank row. */
+  if (!project.demo && !project.code) {
+    return (
+      <p className="pt-1 font-mono text-xs text-muted-foreground">
+        {project.status ?? "Source not public"}
+      </p>
+    );
+  }
+
+  return (
   <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-1">
     {project.demo && (
       <a
@@ -35,6 +45,15 @@ const ProjectLinks = ({ project }: { project: Project }) => (
       </a>
     )}
   </div>
+  );
+};
+
+/** Small pill for work that is not publicly released yet. */
+const StatusPill = ({ status }: { status: string }) => (
+  <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/5 px-2.5 py-1 font-mono text-[11px] text-primary/90">
+    <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" aria-hidden="true"></span>
+    {status}
+  </span>
 );
 
 const TagList = ({ tags }: { tags: string[] }) => (
@@ -57,16 +76,19 @@ const TagList = ({ tags }: { tags: string[] }) => (
  * concrete feature list from the project's own README.
  */
 export const FeaturedProjectCard = ({ project }: { project: Project }) => (
-  <Card className="shadow-card border-border/80 overflow-hidden">
+  <Card className="shadow-card border-border/80 overflow-hidden transition-colors duration-300 hover:border-primary/40">
     <CardContent className="p-6 md:p-8">
       <div className="grid lg:grid-cols-[1.15fr_1fr] gap-8 lg:gap-12">
         <div className="space-y-4 min-w-0">
-          <Badge
-            variant="secondary"
-            className="bg-primary/10 text-primary hover:bg-primary/10 font-mono text-xs"
-          >
-            {project.category}
-          </Badge>
+          <div className="flex flex-wrap items-center gap-2">
+            <Badge
+              variant="secondary"
+              className="bg-primary/10 text-primary hover:bg-primary/10 font-mono text-xs"
+            >
+              {project.category}
+            </Badge>
+            {project.status && <StatusPill status={project.status} />}
+          </div>
 
           <h3 className="text-xl md:text-2xl font-bold leading-snug">
             {project.title}
@@ -114,14 +136,17 @@ export const FeaturedProjectCard = ({ project }: { project: Project }) => (
 
 /** Compact, uniform card used for the rest of the grid. */
 export const CompactProjectCard = ({ project }: { project: Project }) => (
-  <Card className="h-full flex flex-col shadow-card border-border/80 transition-colors duration-300 hover:border-primary/40">
+  <Card className="h-full flex flex-col shadow-card border-border/80 transition-all duration-300 hover:border-primary/40 hover:-translate-y-1">
     <CardContent className="p-6 flex flex-col gap-4 h-full">
-      <Badge
-        variant="secondary"
-        className="bg-primary/10 text-primary hover:bg-primary/10 font-mono text-xs w-fit"
-      >
-        {project.category}
-      </Badge>
+      <div className="flex flex-wrap items-center gap-2">
+        <Badge
+          variant="secondary"
+          className="bg-primary/10 text-primary hover:bg-primary/10 font-mono text-xs w-fit"
+        >
+          {project.category}
+        </Badge>
+        {project.status && <StatusPill status={project.status} />}
+      </div>
 
       <h3 className="text-lg font-bold leading-snug">{project.title}</h3>
 

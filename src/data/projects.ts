@@ -23,10 +23,32 @@ export interface Project {
   code?: string;
   /** Playable / runnable build, where one exists. */
   demo?: string;
+  /** Short status pill, e.g. for work not yet publicly released. */
+  status?: string;
   featured?: boolean;
 }
 
 export const projects: Project[] = [
+  {
+    slug: "shivganga-delivery",
+    title: "Shiv Ganga Delivery",
+    category: "Mobile App",
+    description:
+      "An Android delivery partner app for Shiv Ganga Enterprises. Drivers sign in, see the orders assigned to them, call the customer, and move each order through confirmed, out for delivery, and delivered — with the order list syncing live from Firestore.",
+    role: "Solo developer — built the Flutter app end to end, from the Firestore data model and auth through to the bilingual UI.",
+    tags: ["Flutter", "Dart", "Firebase Auth", "Cloud Firestore", "Provider"],
+    highlights: [
+      "Live order list backed by Cloud Firestore",
+      "Email and password sign-in through Firebase Auth",
+      "Three-stage delivery workflow with confirmation dialogs",
+      "Full Hindi and English interface with an in-app language toggle",
+      "One-tap call to the customer, and cash-on-delivery amount prompts",
+      "Pending and delivered tabs with running totals",
+    ],
+    // Not public: no repository link, and the Play Store listing is not live yet.
+    status: "In review on Google Play",
+    featured: true,
+  },
   {
     slug: "ai-solutions-website",
     title: "AI Solutions Website",
