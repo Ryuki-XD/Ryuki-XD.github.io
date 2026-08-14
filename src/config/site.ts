@@ -29,12 +29,7 @@ export const CV = {
   fileName: "Sudip_Kr_Gachhadar_CV.pdf",
 } as const;
 
-export type SocialKey =
-  | "linkedin"
-  | "instagram"
-  | "facebook"
-  | "whatsapp"
-  | "telegram";
+export type SocialKey = "instagram" | "facebook" | "whatsapp" | "telegram";
 
 export interface SocialLink {
   key: SocialKey;
@@ -50,18 +45,27 @@ export interface SocialLink {
  * filtered out and never rendered, so you can add them one at a time.
  *
  * Expected formats:
- *   linkedin  https://www.linkedin.com/in/<your-profile>
  *   instagram https://www.instagram.com/<username>
  *   facebook  https://www.facebook.com/<username>
  *   whatsapp  https://wa.me/<country code><number>   e.g. https://wa.me/97798...
  *             (digits only — no +, spaces, or dashes)
  *   telegram  https://t.me/<username>
+ *
+ * To add LinkedIn later: add "linkedin" back to SocialKey above, map an icon
+ * in components/socialIcons.ts, and add an entry here.
  */
 export const SOCIALS: SocialLink[] = [
-  { key: "linkedin", label: "LinkedIn", href: "" },
-  { key: "instagram", label: "Instagram", href: "" },
-  { key: "facebook", label: "Facebook", href: "" },
-  { key: "whatsapp", label: "WhatsApp", href: "" },
+  {
+    key: "facebook",
+    label: "Facebook",
+    href: "https://www.facebook.com/profile.php?id=61593145590656",
+  },
+  {
+    key: "instagram",
+    label: "Instagram",
+    href: "https://www.instagram.com/emperor.zxc",
+  },
+  { key: "whatsapp", label: "WhatsApp", href: "https://wa.me/9779844037873" },
   { key: "telegram", label: "Telegram", href: "" },
 ];
 
