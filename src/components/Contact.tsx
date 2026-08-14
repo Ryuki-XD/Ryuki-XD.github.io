@@ -4,20 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import {
-  Mail,
-  Github,
-  Send,
-  Download,
-  Linkedin,
-  Instagram,
-  Facebook,
-} from "lucide-react";
+import { Mail, Github, Send, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 import SectionTitle from "./SectionTitle";
 import TerminalWindow from "./TerminalWindow";
-import { SITE, CV, activeSocials, type SocialKey } from "@/config/site";
+import { SOCIAL_ICONS } from "./socialIcons";
+import { SITE, CV, activeSocials } from "@/config/site";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
@@ -27,13 +20,6 @@ const contactSchema = z.object({
 
 const CONTACT_EMAIL = SITE.email;
 const GITHUB_URL = SITE.github;
-
-const SOCIAL_ICONS: Record<SocialKey, typeof Linkedin> = {
-  linkedin: Linkedin,
-  telegram: Send,
-  instagram: Instagram,
-  facebook: Facebook,
-};
 
 const Contact = () => {
   const { toast } = useToast();

@@ -29,7 +29,12 @@ export const CV = {
   fileName: "Sudip_Kr_Gachhadar_CV.pdf",
 } as const;
 
-export type SocialKey = "linkedin" | "telegram" | "instagram" | "facebook";
+export type SocialKey =
+  | "linkedin"
+  | "instagram"
+  | "facebook"
+  | "whatsapp"
+  | "telegram";
 
 export interface SocialLink {
   key: SocialKey;
@@ -39,17 +44,25 @@ export interface SocialLink {
 }
 
 /**
- * Secondary social links.
+ * Secondary social links, shown in the hero, contact section, and footer.
  *
- * TO ENABLE: paste the full profile URL into `href`.
- * Entries with an empty `href` are filtered out and never rendered, so you can
- * add them one at a time without touching any component.
+ * TO ENABLE: paste the full URL into `href`. Entries with an empty `href` are
+ * filtered out and never rendered, so you can add them one at a time.
+ *
+ * Expected formats:
+ *   linkedin  https://www.linkedin.com/in/<your-profile>
+ *   instagram https://www.instagram.com/<username>
+ *   facebook  https://www.facebook.com/<username>
+ *   whatsapp  https://wa.me/<country code><number>   e.g. https://wa.me/97798...
+ *             (digits only — no +, spaces, or dashes)
+ *   telegram  https://t.me/<username>
  */
 export const SOCIALS: SocialLink[] = [
   { key: "linkedin", label: "LinkedIn", href: "" },
-  { key: "telegram", label: "Telegram", href: "" },
   { key: "instagram", label: "Instagram", href: "" },
   { key: "facebook", label: "Facebook", href: "" },
+  { key: "whatsapp", label: "WhatsApp", href: "" },
+  { key: "telegram", label: "Telegram", href: "" },
 ];
 
 export const activeSocials = (): SocialLink[] =>

@@ -1,20 +1,6 @@
-import {
-  Heart,
-  Mail,
-  Github,
-  Linkedin,
-  Instagram,
-  Facebook,
-  Send,
-} from "lucide-react";
-import { SITE, activeSocials, type SocialKey } from "@/config/site";
-
-const SOCIAL_ICONS: Record<SocialKey, typeof Linkedin> = {
-  linkedin: Linkedin,
-  telegram: Send,
-  instagram: Instagram,
-  facebook: Facebook,
-};
+import { Heart, Mail, Github } from "lucide-react";
+import { SITE, activeSocials } from "@/config/site";
+import { SOCIAL_ICONS } from "./socialIcons";
 
 const Footer = () => {
   const socials = activeSocials();

@@ -1,23 +1,8 @@
 import { Button } from "@/components/ui/button";
-import {
-  ArrowDown,
-  Download,
-  Github,
-  Mail,
-  Linkedin,
-  Instagram,
-  Facebook,
-  Send,
-} from "lucide-react";
-import { SITE, CV, activeSocials, type SocialKey } from "@/config/site";
+import { ArrowDown, Download, Github, Mail } from "lucide-react";
+import { SITE, CV, activeSocials } from "@/config/site";
+import { SOCIAL_ICONS } from "./socialIcons";
 import CodeWindow from "./CodeWindow";
-
-const SOCIAL_ICONS: Record<SocialKey, typeof Linkedin> = {
-  linkedin: Linkedin,
-  telegram: Send,
-  instagram: Instagram,
-  facebook: Facebook,
-};
 
 const iconButton =
   "inline-flex items-center justify-center w-11 h-11 rounded-lg border border-border text-foreground/70 hover:text-primary hover:border-primary/50 hover:bg-primary/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
