@@ -114,6 +114,24 @@ All colors MUST be HSL. */
   .animate-float {
     animation: float-slow 7s ease-in-out infinite;
   }
+
+  /* Terminal traffic lights, pulsing in sequence. */
+  .animate-light {
+    animation: light-pulse 1.8s ease-in-out infinite;
+  }
+}
+
+@keyframes light-pulse {
+  0%,
+  70%,
+  100% {
+    opacity: 0.55;
+    box-shadow: none;
+  }
+  35% {
+    opacity: 1;
+    box-shadow: 0 0 8px 1px currentColor;
+  }
 }
 
 @keyframes fade-up {
@@ -159,7 +177,12 @@ All colors MUST be HSL. */
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+    /* Delays must be cleared too: a delayed animation with fill-mode "both"
+       holds its "from" frame while it waits, which left elements that fade
+       in from opacity 0 permanently invisible. */
+    animation-delay: 0s !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
     scroll-behavior: auto !important;
   }
 }

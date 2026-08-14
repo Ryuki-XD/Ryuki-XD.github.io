@@ -7,7 +7,12 @@ import CodeWindow from "./CodeWindow";
 const iconButton =
   "inline-flex items-center justify-center w-11 h-11 rounded-lg border border-border text-foreground/70 hover:text-primary hover:border-primary/50 hover:bg-primary/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
-const Hero = () => {
+interface HeroProps {
+  /** Held false until the welcome intro finishes. */
+  startCodeTyping?: boolean;
+}
+
+const Hero = ({ startCodeTyping = true }: HeroProps) => {
   const scrollToSection = (sectionId: string) => {
     const element = document.querySelector(sectionId);
     element?.scrollIntoView({ behavior: "smooth" });
@@ -140,7 +145,7 @@ const Hero = () => {
             className="hidden lg:block animate-fade-up"
             style={{ animationDelay: "0.3s" }}
           >
-            <CodeWindow />
+            <CodeWindow start={startCodeTyping} />
           </div>
         </div>
       </div>

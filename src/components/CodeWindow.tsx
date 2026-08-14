@@ -1,104 +1,95 @@
 import TerminalWindow from "./TerminalWindow";
+import { useTypewriter } from "@/hooks/use-typewriter";
 
 /* GitHub-dark syntax colours, matching the contact terminal's palette. */
-const kw = "text-[#ff7b72]"; // keywords
-const str = "text-[#a5d6ff]"; // strings
-const prop = "text-[#79c0ff]"; // object keys
-const fn = "text-[#d2a8ff]"; // functions
-const punc = "text-[#c9d1d9]"; // punctuation
-
-/** Tech pills that float over the window — all drawn from real project work. */
-const stack = ["React", "Python", "Java", "MongoDB"];
+const KW = "text-[#ff7b72]";
+const STR = "text-[#a5d6ff]";
+const PROP = "text-[#79c0ff]";
+const FN = "text-[#d2a8ff]";
+const LIT = "text-[#79c0ff]";
+const PUNC = "text-[#c9d1d9]";
 
 /**
- * Decorative code card for the hero's right column. Everything it prints is
- * already stated elsewhere on the page, so it is hidden from screen readers.
+ * The snippet as coloured tokens. Typing works by revealing characters across
+ * this list, so the highlighting survives the animation.
  */
-const CodeWindow = () => (
-  <div className="relative" aria-hidden="true">
-    {/* Offset panel behind, for depth. */}
-    <div
-      className="absolute inset-0 translate-x-3 translate-y-3 rounded-xl border border-border/60 bg-card/40"
-      aria-hidden="true"
-    ></div>
+const tokens: [text: string, className: string][] = [
+  ["const", KW], [" developer ", PUNC], ["=", KW], [" {\n", PUNC],
+  ["  name", PROP], [": ", PUNC], ["'Sudip Kr. Gachhadar'", STR], [",\n", PUNC],
+  ["  role", PROP], [": ", PUNC], ["'Software Developer'", STR], [",\n", PUNC],
+  ["  degree", PROP], [": ", PUNC], ["'BSc (Hons) Computer Systems Eng.'", STR], [",\n", PUNC],
+  ["  university", PROP], [": ", PUNC], ["'Univ. of Sunderland, UK'", STR], [",\n", PUNC],
+  ["  status", PROP], [": ", PUNC], ["'Awaiting Graduation'", STR], [",\n", PUNC],
+  ["  builds", PROP], [": [", PUNC], ["'web apps'", STR], [", ", PUNC], ["'desktop tools'", STR], ["],\n", PUNC],
+  ["};\n\n", PUNC],
+  ["const", KW], [" ", PUNC], ["openToWork", FN], [" ", PUNC], ["=", KW], [" () ", PUNC], ["=>", KW], [" ", PUNC], ["true", LIT], [";", PUNC],
+];
 
-    <div className="relative animate-float">
-      <TerminalWindow title="developer.js">
-        <div className="p-5 lg:p-6 text-[13px] leading-[1.7] overflow-x-auto">
-          <pre className="font-mono">
-            <code>
-              <span className={kw}>const</span>{" "}
-              <span className={punc}>developer</span>{" "}
-              <span className={kw}>=</span> <span className={punc}>{"{"}</span>
-              {"\n"}
-              {"  "}
-              <span className={prop}>name</span>
-              <span className={punc}>: </span>
-              <span className={str}>'Sudip Kr. Gachhadar'</span>
-              <span className={punc}>,</span>
-              {"\n"}
-              {"  "}
-              <span className={prop}>role</span>
-              <span className={punc}>: </span>
-              <span className={str}>'Software Developer'</span>
-              <span className={punc}>,</span>
-              {"\n"}
-              {"  "}
-              <span className={prop}>degree</span>
-              <span className={punc}>: </span>
-              <span className={str}>'BSc (Hons) Computer Systems Eng.'</span>
-              <span className={punc}>,</span>
-              {"\n"}
-              {"  "}
-              <span className={prop}>university</span>
-              <span className={punc}>: </span>
-              <span className={str}>'Univ. of Sunderland, UK'</span>
-              <span className={punc}>,</span>
-              {"\n"}
-              {"  "}
-              <span className={prop}>status</span>
-              <span className={punc}>: </span>
-              <span className={str}>'Awaiting Graduation'</span>
-              <span className={punc}>,</span>
-              {"\n"}
-              {"  "}
-              <span className={prop}>builds</span>
-              <span className={punc}>: [</span>
-              <span className={str}>'web apps'</span>
-              <span className={punc}>, </span>
-              <span className={str}>'desktop tools'</span>
-              <span className={punc}>],</span>
-              {"\n"}
-              <span className={punc}>{"}"}</span>
-              <span className={punc}>;</span>
-              {"\n\n"}
-              <span className={kw}>const</span>{" "}
-              <span className={fn}>openToWork</span>{" "}
-              <span className={kw}>=</span> <span className={punc}>() </span>
-              <span className={kw}>{"=>"}</span>{" "}
-              <span className="text-[#79c0ff]">true</span>
-              <span className={punc}>;</span>
-              {"\n"}
-              <span className="inline-block w-2 h-4 bg-[#c9d1d9] align-middle animate-pulse"></span>
-            </code>
-          </pre>
-        </div>
-      </TerminalWindow>
+const TOTAL_CHARS = tokens.reduce((n, [text]) => n + text.length, 0);
+
+/** Tech pills — all drawn from real project work. */
+const stack = ["React", "Python", "Java", "MongoDB"];
+
+interface CodeWindowProps {
+  /** Typing begins only once the intro has finished. */
+  start?: boolean;
+}
+
+const CodeWindow = ({ start = true }: CodeWindowProps) => {
+  const { count, done } = useTypewriter(TOTAL_CHARS, { start, charsPerTick: 3, tickMs: 16 });
+
+  /* Slice the token list down to the characters revealed so far. */
+  let remaining = start ? count : 0;
+  const visible: [string, string][] = [];
+  for (const [text, className] of tokens) {
+    if (remaining <= 0) break;
+    visible.push([text.slice(0, remaining), className]);
+    remaining -= text.length;
+  }
+
+  return (
+    <div className="relative" aria-hidden="true">
+      {/* Offset panel behind, for depth. */}
+      <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-xl border border-border/60 bg-card/40"></div>
+
+      <div className="relative animate-float">
+        <TerminalWindow title="developer.js">
+          {/* Fixed height stops the card resizing as the text types in. */}
+          <div className="p-5 lg:p-6 text-[13px] leading-[1.7] h-[300px] overflow-hidden">
+            <pre className="font-mono whitespace-pre-wrap break-words">
+              <code>
+                {visible.map(([text, className], i) => (
+                  <span key={i} className={className}>
+                    {text}
+                  </span>
+                ))}
+                <span
+                  className={`inline-block w-2 h-4 bg-[#c9d1d9] align-middle ${
+                    done ? "animate-pulse" : ""
+                  }`}
+                ></span>
+              </code>
+            </pre>
+          </div>
+        </TerminalWindow>
+      </div>
+
+      {/* Floating tech pills, revealed once the code has finished typing. */}
+      <ul className="absolute -bottom-5 left-4 right-4 flex flex-wrap gap-2">
+        {stack.map((tech, i) => (
+          <li
+            key={tech}
+            className={`rounded-lg border border-primary/30 bg-card/95 backdrop-blur px-3 py-1.5 font-mono text-xs text-primary shadow-card transition-all duration-500 ${
+              done ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+            }`}
+            style={{ transitionDelay: `${i * 110}ms` }}
+          >
+            {tech}
+          </li>
+        ))}
+      </ul>
     </div>
-
-    {/* Floating tech pills overlapping the window's lower edge. */}
-    <ul className="absolute -bottom-5 left-4 right-4 flex flex-wrap gap-2">
-      {stack.map((tech, i) => (
-        <li
-          key={tech}
-          className="animate-fade-up rounded-lg border border-primary/30 bg-card/95 backdrop-blur px-3 py-1.5 font-mono text-xs text-primary shadow-card"
-          style={{ animationDelay: `${0.5 + i * 0.12}s` }}
-        >
-          {tech}
-        </li>
-      ))}
-    </ul>
-  </div>
-);
+  );
+};
 
 export default CodeWindow;
