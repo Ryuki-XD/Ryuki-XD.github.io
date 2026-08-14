@@ -25,7 +25,7 @@ export const SITE = {
  * so the site never ships a broken link.
  */
 export const CV = {
-  cvUrl: "",
+  cvUrl: "/cv/Sudip_Kr_Gachhadar_CV.pdf",
   fileName: "Sudip_Kr_Gachhadar_CV.pdf",
 } as const;
 
