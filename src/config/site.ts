@@ -47,8 +47,9 @@ export interface SocialLink {
  * Expected formats:
  *   instagram https://www.instagram.com/<username>
  *   facebook  https://www.facebook.com/<username>
- *   whatsapp  https://wa.me/<country code><number>   e.g. https://wa.me/97798...
- *             (digits only — no +, spaces, or dashes)
+ *   whatsapp  https://wa.me/<username>  (preferred — keeps the phone number
+ *             off the page), or https://wa.me/<country code><number> using
+ *             digits only, no +, spaces, or dashes
  *   telegram  https://t.me/<username>
  *
  * To add LinkedIn later: add "linkedin" back to SocialKey above, map an icon
@@ -65,7 +66,14 @@ export const SOCIALS: SocialLink[] = [
     label: "Instagram",
     href: "https://www.instagram.com/emperor.zxc",
   },
-  { key: "whatsapp", label: "WhatsApp", href: "https://wa.me/9779844037873" },
+  {
+    key: "whatsapp",
+    label: "WhatsApp",
+    // Username link rather than the phone number, so the number is not
+    // published on the page. Falls back to https://wa.me/<digits> if the
+    // username is ever released.
+    href: "https://wa.me/sudipgachchhadar",
+  },
   { key: "telegram", label: "Telegram", href: "" },
 ];
 
