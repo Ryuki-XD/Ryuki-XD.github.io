@@ -1,4 +1,10 @@
-import { Instagram, Facebook, MessageCircle, Send } from "lucide-react";
+import {
+  Linkedin,
+  Instagram,
+  Facebook,
+  MessageCircle,
+  Send,
+} from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { SocialKey } from "@/config/site";
 
@@ -9,6 +15,7 @@ import type { SocialKey } from "@/config/site";
  * lucide-react has no WhatsApp glyph, so MessageCircle stands in for it.
  */
 export const SOCIAL_ICONS: Record<SocialKey, LucideIcon> = {
+  linkedin: Linkedin,
   instagram: Instagram,
   facebook: Facebook,
   whatsapp: MessageCircle,

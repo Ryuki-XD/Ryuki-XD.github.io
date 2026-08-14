@@ -29,7 +29,12 @@ export const CV = {
   fileName: "Sudip_Kr_Gachhadar_CV.pdf",
 } as const;
 
-export type SocialKey = "instagram" | "facebook" | "whatsapp" | "telegram";
+export type SocialKey =
+  | "linkedin"
+  | "instagram"
+  | "facebook"
+  | "whatsapp"
+  | "telegram";
 
 export interface SocialLink {
   key: SocialKey;
@@ -45,6 +50,7 @@ export interface SocialLink {
  * filtered out and never rendered, so you can add them one at a time.
  *
  * Expected formats:
+ *   linkedin  https://www.linkedin.com/in/<profile>
  *   instagram https://www.instagram.com/<username>
  *   facebook  https://www.facebook.com/<username>
  *   whatsapp  https://wa.me/<username>  (preferred — keeps the phone number
@@ -52,10 +58,15 @@ export interface SocialLink {
  *             digits only, no +, spaces, or dashes
  *   telegram  https://t.me/<username>
  *
- * To add LinkedIn later: add "linkedin" back to SocialKey above, map an icon
- * in components/socialIcons.ts, and add an entry here.
+ * Share links often carry ?utm_source=... tracking parameters — strip them,
+ * the bare profile URL is enough.
  */
 export const SOCIALS: SocialLink[] = [
+  {
+    key: "linkedin",
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/sudip-gachchhadar-802812398",
+  },
   {
     key: "facebook",
     label: "Facebook",
