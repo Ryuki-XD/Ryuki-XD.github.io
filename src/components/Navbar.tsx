@@ -94,10 +94,10 @@ const Navbar = () => {
                   aria-current={
                     activeSection === link.href ? "true" : undefined
                   }
-                  className={`text-sm lg:text-base font-medium transition-colors rounded-sm px-1 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+                  className={`relative text-sm lg:text-base font-medium transition-colors rounded-sm px-1 py-1 after:absolute after:left-0 after:right-0 after:-bottom-1.5 after:h-0.5 after:rounded-full after:bg-primary after:transition-transform after:duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                     activeSection === link.href
-                      ? "text-primary"
-                      : "text-foreground/80 hover:text-primary"
+                      ? "text-primary after:scale-x-100"
+                      : "text-foreground/80 hover:text-primary after:scale-x-0"
                   }`}
                 >
                   {link.label}
