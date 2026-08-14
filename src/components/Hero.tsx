@@ -14,7 +14,9 @@ const Hero = () => {
       className="relative min-h-[100svh] flex items-center pt-24 pb-28 md:pt-28 md:pb-32 bg-gradient-hero scroll-mt-20"
     >
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl space-y-4 md:space-y-5 animate-fade-in">
+        {/* mx-auto keeps the block centred on wide screens, matching every
+            other section; lines stay left-aligned for readability. */}
+        <div className="max-w-4xl mx-auto space-y-4 md:space-y-5 animate-fade-in">
           <p className="font-mono text-primary text-sm md:text-base">
             Hi, my name is
           </p>
