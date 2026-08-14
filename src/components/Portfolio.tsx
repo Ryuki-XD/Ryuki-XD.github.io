@@ -1,112 +1,42 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { ExternalLink } from "lucide-react";
+import { Github } from "lucide-react";
 import SectionTitle from "./SectionTitle";
+import { FeaturedProjectCard, CompactProjectCard } from "./ProjectCard";
+import { featuredProjects, otherProjects } from "@/data/projects";
+import { SITE } from "@/config/site";
 
 const Portfolio = () => {
-  const projects = [
-    {
-      title: "Chrono Architect — Browser Game",
-      description:
-        "A time-clone puzzle game: record your movements, replay them as clones of your past self, and cooperate across timelines to solve each level. Pressure plates, lasers, crates, and moving platforms — all procedurally drawn.",
-      tags: ["JavaScript", "Phaser 3", "ES6 Modules", "Puzzle Design"],
-      category: "Game Dev",
-      link: "https://ryuki-xd.github.io/chrono-architect/",
-    },
-    {
-      title: "Cyber Heist — Browser Game",
-      description:
-        "A cyberpunk stealth infiltration game: guard AI patrols, security cameras, hacking minigames, achievements, and save profiles. All graphics and audio generated in code — playable right in your browser.",
-      tags: ["JavaScript", "Phaser 3", "Canvas", "Web Audio"],
-      category: "Game Dev",
-      link: "https://ryuki-xd.github.io/cyber-heist/",
-    },
-    {
-      title: "AI Solutions Website",
-      description:
-        "A full business website with a CMS-style admin dashboard, an AI chatbot powered by Google Gemini, email automation, and a MongoDB-backed REST API served by a Python backend.",
-      tags: ["JavaScript", "Python", "MongoDB", "Gemini AI"],
-      category: "Full-Stack Web",
-      link: "https://github.com/Ryuki-XD/ai-solutions-website",
-    },
-    {
-      title: "AI Resume Analyzer",
-      description:
-        "An ATS-style resume scorer that analyses a CV against a job description and reports keyword coverage, match score, and improvement suggestions — built with Streamlit.",
-      tags: ["Python", "Streamlit", "NLP"],
-      category: "AI / Data App",
-      link: "https://github.com/Ryuki-XD/ai-resume-analyzer",
-    },
-    {
-      title: "Inventory Management System",
-      description:
-        "A desktop inventory app with dashboard KPIs and charts, sales and purchase tracking, barcode generation, PDF invoices, Excel/CSV export, and database backups.",
-      tags: ["Python", "CustomTkinter", "SQLite", "pandas"],
-      category: "Desktop App",
-      link: "https://github.com/Ryuki-XD/inventory-management-system",
-    },
-    {
-      title: "Library Management System",
-      description:
-        "A desktop app for managing books, students, and loans with dashboards and reports. Layered MVC architecture, hashed logins, and light/dark themes over MySQL.",
-      tags: ["Java", "JavaFX", "MySQL"],
-      category: "Desktop App",
-      link: "https://github.com/Ryuki-XD/library-management-system",
-    },
-  ];
-
   return (
-    <section id="portfolio" className="py-16 md:py-24">
+    <section id="portfolio" className="py-20 md:py-28 scroll-mt-20">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <SectionTitle index="04">Projects</SectionTitle>
+          <p className="-mt-6 mb-10 md:mb-14 text-muted-foreground max-w-2xl leading-relaxed">
+            Personal and academic projects, each built end to end. Source code
+            is public for all of them.
+          </p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {projects.map((project, index) => (
-              <a
-                key={project.title}
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block"
-              >
-              <Card
-                className="h-full shadow-card hover-lift hover-glow transition-all duration-300 group animate-fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <CardHeader>
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <Badge
-                      variant="secondary"
-                      className="bg-primary/10 text-primary hover:bg-primary/20"
-                    >
-                      {project.category}
-                    </Badge>
-                    <ExternalLink className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                  </div>
-                  <CardTitle className="text-xl group-hover:text-primary transition-colors">
-                    {project.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-foreground/70 mb-4">
-                    {project.description}
-                  </CardDescription>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <Badge
-                        key={tag}
-                        variant="outline"
-                        className="text-xs border-primary/30 text-primary"
-                      >
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-              </a>
+          <div className="space-y-6 md:space-y-8">
+            {featuredProjects.map((project) => (
+              <FeaturedProjectCard key={project.slug} project={project} />
             ))}
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8 mt-6 md:mt-8">
+            {otherProjects.map((project) => (
+              <CompactProjectCard key={project.slug} project={project} />
+            ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <a
+              href={SITE.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 font-mono text-sm text-muted-foreground hover:text-primary transition-colors rounded-sm px-2 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              <Github className="w-4 h-4" aria-hidden="true" />
+              More on GitHub ↗
+            </a>
           </div>
         </div>
       </div>
