@@ -34,8 +34,8 @@ export const projects: Project[] = [
     title: "Shiv Ganga — Water Delivery Platform",
     category: "Client Work · Mobile",
     description:
-      "A two-app Flutter and Firebase platform built for a drinking water delivery business, now live on Google Play in Early Access. Customers browse the product catalogue, build a cart, check out to a saved address and pay cash on delivery; drivers pick the order up in a partner panel and move it through to delivered. Both apps share one Firebase backend, so status flows between them in real time.",
-    role: "Developer on a small team, working across both apps — the customer-facing app and the delivery partner panel.",
+      "A two-app Flutter and Firebase platform built for a drinking water delivery business, shipped to Google Play Early Access. Customers browse the product catalogue, build a cart, check out to a saved address and pay cash on delivery; drivers pick the order up in a partner panel and move it through to delivered. Both apps share one Firebase backend, so status flows between them in real time.",
+    role: "Developer at ByteCrew, working across both apps — the customer-facing app and the delivery partner panel — for the client, Shiv Ganga Enterprises.",
     tags: ["Flutter", "Dart", "Firebase Auth", "Cloud Firestore", "FCM"],
     highlights: [
       "Customer app: product catalogue, cart and checkout, order history, and saved delivery addresses",
@@ -45,9 +45,9 @@ export const projects: Project[] = [
       "Full Hindi and English interface with an in-app language toggle",
       "One-tap call to the customer, and cash-on-delivery amount prompts",
     ],
-    // Client-owned code, so no repository link. Early Access listings are not
-    // publicly indexed, so no store link until the owner supplies one.
-    status: "Live on Google Play · Early Access",
+    // Client-owned code, so no repository link. Still closed testing, so the
+    // listing is tester-only — no store link until it opens to the public.
+    status: "Google Play Early Access · closed testing",
     featured: true,
   },
   {
