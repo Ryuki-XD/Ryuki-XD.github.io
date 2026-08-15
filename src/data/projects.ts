@@ -34,20 +34,20 @@ export const projects: Project[] = [
     title: "Shiv Ganga — Water Delivery Platform",
     category: "Client Work · Mobile",
     description:
-      "A two-app Flutter and Firebase platform built for a water delivery business: a customer app for placing and tracking orders, and a delivery partner panel where drivers work through the orders assigned to them. Both share one Firebase backend, so an order placed in the customer app appears on a driver's phone and its status flows back the same way.",
+      "A two-app Flutter and Firebase platform built for a drinking water delivery business, now live on Google Play in Early Access. Customers browse the product catalogue, build a cart, check out to a saved address and pay cash on delivery; drivers pick the order up in a partner panel and move it through to delivered. Both apps share one Firebase backend, so status flows between them in real time.",
     role: "Developer on a small team, working across both apps — the customer-facing app and the delivery partner panel.",
     tags: ["Flutter", "Dart", "Firebase Auth", "Cloud Firestore", "FCM"],
     highlights: [
-      "Customer app: Google sign-in, push notifications, location and camera access",
-      "Firebase App Check enabled to keep unverified clients off the backend",
+      "Customer app: product catalogue, cart and checkout, order history, and saved delivery addresses",
+      "Google sign-in, push notifications, and Firebase App Check on the backend",
       "Partner panel: live order list from Cloud Firestore, scoped per driver",
       "Three-stage delivery workflow with confirmation dialogs",
       "Full Hindi and English interface with an in-app language toggle",
       "One-tap call to the customer, and cash-on-delivery amount prompts",
     ],
-    // Client-owned code, so nothing is published. The Delivery Panel Starter
-    // repository is a separately written generic template, not this source.
-    status: "Client project · in closed testing",
+    // Client-owned code, so no repository link. Early Access listings are not
+    // publicly indexed, so no store link until the owner supplies one.
+    status: "Live on Google Play · Early Access",
     featured: true,
   },
   {
