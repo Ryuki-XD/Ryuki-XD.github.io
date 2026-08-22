@@ -30,6 +30,27 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: "aurelian-kathmandu",
+    title: "The Aurelian Kathmandu — Hotel Reservation Platform",
+    category: "Full-Stack Web",
+    description:
+      "A reservation platform for a fictional five-star hotel: marketing site, booking engine, guest dashboard, staff back office, revenue analytics, and an AI concierge. The hotel is licensed for 100 guests in residence, and that limit is the constraint the whole system is built around — availability is checked against it on every enquiry, so the house can never be overbooked.",
+    role:
+      "Solo developer — domain model, reservation engine, REST API, database schema, design system, and the full front end.",
+    tags: ["Next.js 15", "TypeScript", "Prisma", "PostgreSQL", "Tailwind CSS"],
+    highlights: [
+      "Occupancy engine that fills to exactly 100 guests, then refuses the next booking with alternative dates and room categories",
+      "One domain layer behind two storage adapters — Prisma with serialisable transactions on a server, browser storage for the static build",
+      "Role-based access across guest, staff, manager, and admin, enforced server-side on every API route",
+      "AURA concierge answers only from the hotel's own catalogue, and runs with no AI API key configured at all",
+      "Itemised NPR quotes with service charge, VAT, and tourism levy, frozen onto each reservation at booking time",
+      "Admin dashboard with live occupancy, revenue by source, and hand-built SVG charts that expose their data as tables",
+    ],
+    demo: "https://ryuki-xd.github.io/the-aurelian-kathmandu/",
+    code: "https://github.com/Ryuki-XD/the-aurelian-kathmandu",
+    featured: true,
+  },
+  {
     slug: "shivganga-delivery",
     title: "Shiv Ganga — Water Delivery Platform",
     category: "Client Work · Mobile",
